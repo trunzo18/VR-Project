@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-
+	public AudioSource rollSource;
 	private Vector3 startPos;
     // Start is called before the first frame update
     void Start()
     {
+    	rollSource = GetComponent<AudioSource>();
         startPos = transform.position;
     }
 
@@ -19,5 +20,10 @@ public class Ball : MonoBehaviour
         	transform.position = startPos;
         	GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
+    }
+    void OnCollisionEnter(Collision collision){
+    	if (collision.gameObject.tag == "lane"){
+    		rollSource.Play();
+    	}
     }
 }
